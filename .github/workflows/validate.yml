@@ -1,0 +1,27 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate manifest and JavaScript
+        run: |
+          node --check background.js
+          node --check exporter.js
+          node -e "const m = JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')); if (m.manifest_version !== 3) throw new Error('Expected Manifest V3');"
+
+      - name: Verify privacy invariants
+        run: |
+          ! grep -En "fetch\(|XMLHttpRequest|WebSocket|sendBeacon" background.js exporter.js
+          ! grep -q '"host_permissions"' manifest.json

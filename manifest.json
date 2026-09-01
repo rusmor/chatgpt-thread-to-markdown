@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "ChatGPT Thread to Markdown",
+  "version": "1.0.0",
+  "description": "Exports the active ChatGPT conversation to Markdown with one click.",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Export ChatGPT thread to Markdown"
+  }
+}
