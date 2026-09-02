@@ -1,0 +1,45 @@
+name: Clean old history metadata
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/cleanup-history-metadata.yml
+
+permissions:
+  actions: write
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Delete workflow runs attached to replaced commits
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for old_sha in \
+            ef8b58c3fb0753133be2172cf30f27529da5d569 \
+            2a58560322f9b760c222ce790ce36271e3a3c348 \
+            5b9c17a7a701a002c50ca83eaf73cf13288f2178
+          do
+            gh api --paginate \
+              "repos/$GITHUB_REPOSITORY/actions/runs?head_sha=$old_sha&per_page=100" \
+              --jq '.workflow_runs[].id' |
+            while read -r run_id
+            do
+              [ -n "$run_id" ] && gh api --method DELETE \
+                "repos/$GITHUB_REPOSITORY/actions/runs/$run_id"
+            done
+          done
+
+      - name: Remove this one-time workflow
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git rm .github/workflows/cleanup-history-metadata.yml
+          git commit -m "Remove one-time privacy cleanup"
+          git push origin HEAD:main
