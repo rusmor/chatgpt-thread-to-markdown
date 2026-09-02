@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Chat and Markdown export icon</title>
+  <desc id="desc">A turquoise speech bubble containing a white letter M and download arrow on a dark rounded square.</desc>
+  <defs>
+    <linearGradient id="background" x1="80" y1="48" x2="432" y2="464" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#172033"/>
+      <stop offset="1" stop-color="#0B1020"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="116" y1="120" x2="396" y2="392" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#67E8D2"/>
+      <stop offset="1" stop-color="#2EBFA5"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="24" y="24" width="464" height="464" rx="112" fill="url(#background)"/>
+  <path
+    d="M151 126h210c39 0 70 31 70 70v116c0 39-31 70-70 70H257l-92 66 24-66h-38c-39 0-70-31-70-70V196c0-39 31-70 70-70Z"
+    fill="none"
+    stroke="url(#accent)"
+    stroke-width="34"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M158 305v-96l48 58 48-58v96"
+    fill="none"
+    stroke="#F8FAFC"
+    stroke-width="27"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M330 206v99m-38-38 38 38 38-38"
+    fill="none"
+    stroke="#F8FAFC"
+    stroke-width="27"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

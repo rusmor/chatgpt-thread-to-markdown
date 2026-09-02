@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">ChatGPT Thread to Markdown</title>
+  <desc id="desc">Social preview for a privacy-first browser extension that exports conversations to Markdown.</desc>
+  <defs>
+    <linearGradient id="bg" x1="80" y1="40" x2="1200" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#172033"/>
+      <stop offset="1" stop-color="#080C18"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="110" y1="120" x2="460" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#67E8D2"/>
+      <stop offset="1" stop-color="#2EBFA5"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <circle cx="1090" cy="90" r="220" fill="#2EBFA5" opacity=".08"/>
+  <circle cx="1190" cy="570" r="300" fill="#67E8D2" opacity=".05"/>
+
+  <path
+    d="M155 140h232c43 0 78 35 78 78v128c0 43-35 78-78 78H272l-102 73 27-73h-42c-43 0-78-35-78-78V218c0-43 35-78 78-78Z"
+    fill="none"
+    stroke="url(#accent)"
+    stroke-width="34"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path d="M164 339V233l53 64 53-64v106" fill="none" stroke="#F8FAFC" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M354 230v109m-42-42 42 42 42-42" fill="none" stroke="#F8FAFC" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <text x="540" y="238" fill="#F8FAFC" font-family="DejaVu Sans, Arial, sans-serif" font-size="58" font-weight="700">Thread to Markdown</text>
+  <text x="545" y="316" fill="#67E8D2" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="600">One click. Clean Markdown. No tracking.</text>
+  <text x="545" y="380" fill="#A9B4C7" font-family="DejaVu Sans, Arial, sans-serif" font-size="26">Open-source Chrome &amp; Edge extension</text>
+  <text x="545" y="421" fill="#A9B4C7" font-family="DejaVu Sans, Arial, sans-serif" font-size="26">for long ChatGPT conversations</text>
+</svg>

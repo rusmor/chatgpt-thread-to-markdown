@@ -1,0 +1,69 @@
+name: Package release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - manifest.json
+      - background.js
+      - exporter.js
+      - icons/**
+      - README.md
+      - LICENSE
+      - PRIVACY.md
+      - .github/workflows/release.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Read extension version
+        id: version
+        shell: bash
+        run: |
+          version="$(node -p "require('./manifest.json').version")"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+
+      - name: Stop if this version is already released
+        id: existing
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build extension archive
+        if: steps.existing.outputs.exists == 'false'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          mkdir -p dist/chatgpt-thread-to-markdown
+          cp manifest.json background.js exporter.js README.md LICENSE PRIVACY.md dist/chatgpt-thread-to-markdown/
+          cp -R icons dist/chatgpt-thread-to-markdown/
+          cd dist
+          zip -r "chatgpt-thread-to-markdown-v${VERSION}.zip" chatgpt-thread-to-markdown
+
+      - name: Create GitHub release
+        if: steps.existing.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          gh release create "$TAG" \
+            "dist/chatgpt-thread-to-markdown-v${VERSION}.zip" \
+            --target "$GITHUB_SHA" \
+            --title "ChatGPT Thread to Markdown ${VERSION}" \
+            --notes "Initial private release. Download the ZIP, extract it, and load the extracted folder through chrome://extensions with Developer mode enabled."
